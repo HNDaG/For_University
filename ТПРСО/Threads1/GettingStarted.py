@@ -31,4 +31,4 @@ class Program:
         
 
 Program()
-ProgramLin()
+ProgramLin() # Is the same as Program(), but implemented linearly
