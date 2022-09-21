@@ -24,10 +24,13 @@ class Program:
 
     @classmethod
     def func(cls, right):
+        start = time.time()
         ans = 0
         for x in range(right+1):
             ans+=x
         cls.results.append(ans)
+        print(f'{threading.get_ident()} Time is {time.time() - start}')
+
         
 
 Program()
