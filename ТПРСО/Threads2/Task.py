@@ -10,22 +10,37 @@ class Rice:
 
     @property
     def mass(self):
+        lock = Lock()
+        lock.acquire()
         try:
-            lock = Lock()
-            lock.acquire()
-            value = self._mass 
+            value = self._mass
         finally:
-            
             lock.release()
             return value
+
+  
     def set_mass(self, value):
+
+        lock = Lock()
+        lock.acquire()
         try:
-            lock = Lock()
-            lock.acquire()
-            self._mass += value
             self.arr.append(self.mass)
+            self._mass += value
         finally:
-            lock.release()    
+            lock.release()
+
+  
+    def set_mass(self, value):
+
+        lock = Lock()
+        lock.acquire()
+        try:
+            self.arr.append(self.mass)
+            self._mass += value
+        finally:
+            lock.release()
+
+    
     
 
 class Potatoes:
@@ -35,22 +50,21 @@ class Potatoes:
 
     @property
     def mass(self):
+        lock = Lock()
+        lock.acquire()
         try:
-            lock = Lock()
-            lock.acquire()
-            value = self._mass 
+            value = self._mass
         finally:
-
             lock.release()
             return value
 
   
     def set_mass(self, value):
+        lock = Lock()
+        lock.acquire()
         try:
-            lock = Lock()
-            lock.acquire()
-            self._mass += value
             self.arr.append(self.mass)
+            self._mass += value
         finally:
             lock.release()
 
@@ -58,15 +72,15 @@ class Potatoes:
 def adder(cl, value):
     for i in range(value):
         to_add = r.random()
-        cl.set_mass(to_add)
+        cl.set_mass(to_add )
             
     
 if __name__ == '__main__':
     R = Rice()
     P = Potatoes()
 
-    le = 5000
-    ri = 10000
+    le = 10000
+    ri = 20000
 
     rnd1 = r.randint(le, ri)
     rnd2 = r.randint(le, ri)
@@ -74,6 +88,8 @@ if __name__ == '__main__':
     start = time.time()
     threads = []
     N = r.randint(10, 30)
+
+
     for n in range(N):
         if n < N / 2:
             t = Thread(target=adder, args=(P, rnd1))
@@ -84,22 +100,21 @@ if __name__ == '__main__':
             threads.append(t)
             threads[-1].start()
 
+
     for thread in threads:
         thread.join()
+
 
     print(f"Answer is {(R.mass, P.mass)}")
     print(f"Time is {time.time() - start}")
 
     
     # check is it accurate
-    
-    for i in range(len(R.arr)-1):
-        if R.arr[i] in R.arr[i+1:]:
-            print("error")
+    if len(R.arr) == len(set(R.arr)):
+        print("Error, there is some dublicates...")
     print("Rice is done...")
-    for i in range(len(P.arr)-1):
-        if P.arr[i] in P.arr[i+1:]:
-            print("error")
+    if len(P.arr) == len(set(P.arr)):
+        print("Error, there is some dublicates...")
     print("Potatoes is done...")
     
 
