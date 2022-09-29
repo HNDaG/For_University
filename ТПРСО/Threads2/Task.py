@@ -29,16 +29,6 @@ class Rice:
         finally:
             lock.release()
 
-  
-    def set_mass(self, value):
-
-        lock = Lock()
-        lock.acquire()
-        try:
-            self.arr.append(self.mass)
-            self._mass += value
-        finally:
-            lock.release()
 
     
     
