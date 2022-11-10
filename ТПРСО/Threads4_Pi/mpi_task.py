@@ -56,4 +56,7 @@ def main():
 
 main()
 
-#mpiexec -n 4 python C:\Users\nikit\Desktop\University\ТПРСО\Threads4_Pi\mpi_task.py
+# Windows
+# mpiexec -n 4 python C:\Users\nikit\Desktop\University\ТПРСО\Threads4_Pi\mpi_task.py 100000
+# Linux
+# mpirun -np 4 python3 mpi_task.py 100000
